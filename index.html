@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+
+<body data-theme="light">
+    <!-- top nav bar -->
+    <header class="header">
+        <div class="header-content">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search location..." id="searchInput">
+                <button class="search-btn" id="searchBtn" aria-label="Search">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="date-time-display">
+                <div class="current-date" id="currentDate"></div>
+                <div class="current-time" id="currentTime"></div>
+            </div>
+            <div class="header-right" style="gap: 16px;">
+                <div class="weather-summary-icon">⛅</div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                    <svg class="sun-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- main weather content -->
+    <main class="main-content">
+        <!-- big weather card -->
+        <section class="current-weather-section">
+            <div class="current-weather-card">
+                <div class="weather-icon-large">⛅</div>
+                <div class="temperature-display">
+                    <span class="temperature-number" id="temperatureNumber"></span>
+                    <span class="temperature-unit">°C</span>
+                </div>
+                <div class="city-name" id="cityName">City Name</div>
+                <div class="weather-condition" id="weatherCondition">Weather Description</div>
+                <div class="weather-details">
+                    <div class="detail-item">
+                        <span class="detail-icon">💧</span>
+                        <span class="detail-text"><span id="humidity">0</span>% Humidity</span>
+                    </div>
+                    <div class="detail-item">
+                        <span class="detail-icon">💨</span>
+                        <span class="detail-text"><span id="windSpeed">0</span> mph Wind</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- extra weather info -->
+        <section class="stats-section">
+            <h2 class="section-title">Additional Information</h2>
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-label">Sunrise</div>
+                    <div class="stat-icon">🌅</div>
+                    <div class="stat-value" id="sunrise">0 AM</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Sunset</div>
+                    <div class="stat-icon">🌇</div>
+                    <div class="stat-value" id="sunset">0 PM</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Pressure</div>
+                    <div class="stat-value" id="pressure">0</div>
+                    <div class="stat-unit">hPa</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Visibility</div>
+                    <div class="stat-icon">👁️</div>
+                    <div class="stat-value" id="visibility">0 km</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="social-icons">
+                <a href="https://x.com/AkhtarRazaMirza" target="_blank" class="social-icon" aria-label="Twitter">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://github.com/AkhtarRazaMirza" target="_blank" class="social-icon" aria-label="GitHub">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22">
+                        </path>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com/mirza._.007/" target="_blank" class="social-icon" aria-label="Instagram">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+            </div>
+            <div class="footer-text">Powered by Weather API</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+<!-- this section is not working yet -->
+
+<!-- hourly temps - scroll horizontal -->
+<!-- <section class="hourly-forecast-section">
+            <h2 class="section-title">Hourly Forecast</h2>
+            <div class="hourly-slider" id="hourlySlider">
+                <div class="hourly-card">
+                    <div class="hour-time">3 PM</div>
+                    <div class="hour-icon">⛅</div>
+                    <div class="hour-temp">72°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">4 PM</div>
+                    <div class="hour-icon">☀️</div>
+                    <div class="hour-temp">73°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">5 PM</div>
+                    <div class="hour-icon">☀️</div>
+                    <div class="hour-temp">74°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">6 PM</div>
+                    <div class="hour-icon">⛅</div>
+                    <div class="hour-temp">73°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">7 PM</div>
+                    <div class="hour-icon">⛅</div>
+                    <div class="hour-temp">71°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">8 PM</div>
+                    <div class="hour-icon">🌙</div>
+                    <div class="hour-temp">69°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">9 PM</div>
+                    <div class="hour-icon">🌙</div>
+                    <div class="hour-temp">68°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">10 PM</div>
+                    <div class="hour-icon">🌙</div>
+                    <div class="hour-temp">67°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">11 PM</div>
+                    <div class="hour-icon">⛅</div>
+                    <div class="hour-temp">66°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">12 AM</div>
+                    <div class="hour-icon">🌧️</div>
+                    <div class="hour-temp">65°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">1 AM</div>
+                    <div class="hour-icon">🌧️</div>
+                    <div class="hour-temp">64°</div>
+                </div>
+                <div class="hourly-card">
+                    <div class="hour-time">2 AM</div>
+                    <div class="hour-icon">⛅</div>
+                    <div class="hour-temp">64°</div>
+                </div>
+            </div>
+        </section> -->
+
+<!-- week forecast -->
+<!-- <section class="seven-day-section">
+            <h2 class="section-title">7-Day Forecast</h2>
+            <div class="seven-day-grid">
+                <div class="day-card">
+                    <div class="day-name">Monday</div>
+                    <div class="day-date">Oct 30</div>
+                    <div class="day-icon">☀️</div>
+                    <div class="day-temps">
+                        <span class="temp-max">75°</span>
+                        <span class="temp-min">65°</span>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <div class="day-name">Tuesday</div>
+                    <div class="day-date">Oct 31</div>
+                    <div class="day-icon">⛅</div>
+                    <div class="day-temps">
+                        <span class="temp-max">73°</span>
+                        <span class="temp-min">64°</span>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <div class="day-name">Wednesday</div>
+                    <div class="day-date">Nov 1</div>
+                    <div class="day-icon">🌧️</div>
+                    <div class="day-temps">
+                        <span class="temp-max">68°</span>
+                        <span class="temp-min">60°</span>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <div class="day-name">Thursday</div>
+                    <div class="day-date">Nov 2</div>
+                    <div class="day-icon">⛈️</div>
+                    <div class="day-temps">
+                        <span class="temp-max">66°</span>
+                        <span class="temp-min">58°</span>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <div class="day-name">Friday</div>
+                    <div class="day-date">Nov 3</div>
+                    <div class="day-icon">⛅</div>
+                    <div class="day-temps">
+                        <span class="temp-max">70°</span>
+                        <span class="temp-min">62°</span>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <div class="day-name">Saturday</div>
+                    <div class="day-date">Nov 4</div>
+                    <div class="day-icon">☀️</div>
+                    <div class="day-temps">
+                        <span class="temp-max">76°</span>
+                        <span class="temp-min">66°</span>
+                    </div>
+                </div>
+                <div class="day-card">
+                    <div class="day-name">Sunday</div>
+                    <div class="day-date">Nov 5</div>
+                    <div class="day-icon">☀️</div>
+                    <div class="day-temps">
+                        <span class="temp-max">78°</span>
+                        <span class="temp-min">68°</span>
+                    </div>
+                </div>
+            </div>
+        </section> -->
+
+<!-- <div class="stat-card">
+                    <div class="stat-label">Air Quality</div>
+                    <div class="stat-value" style="color: #10b981;">42</div>
+                    <div class="stat-status" style="font-size: 12px;">Good</div>
+                </div> -->
