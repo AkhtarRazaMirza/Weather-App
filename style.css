@@ -25,26 +25,26 @@ html {
 
 /* light theme colors */
 [data-theme="light"] {
-    --bg-start: #6c64fb;
-    --bg-mid: #748cf1;
-    --bg-end: #abaed3;
+    --bg-start: hsl(220 59% 91%);
+    --bg-mid: hsl(220 100% 97%);
+    --bg-end: hsl(220 100% 100%);
     --card-bg: rgba(255, 255, 255, 0.85);
-    --card-border: rgba(108, 100, 251, 0.1);
-    --text: #2d3748;
-    --text-dim: #4a5568;
+    --card-border: hsl(220 19% 53%);
+    --text: hsl(226 85% 7%);
+    --text-dim: hsl(220 26% 31%);
     --shadow: rgba(108, 100, 251, 0.15);
     --shadow-hover: rgba(108, 100, 251, 0.25);
 }
 
 /* dark theme */
 [data-theme="dark"] {
-    --bg-start: #24142c;
-    --bg-mid: #3e3b51;
-    --bg-end: #2a2538;
-    --card-bg: rgba(62, 59, 81, 0.6);
-    --card-border: rgba(158, 97, 107, 0.15);
-    --text: #fff;
-    --text-dim: #e2e8f0;
+    --bg-start: hsl(228 79% 2%);
+    --bg-mid: hsl(222 55% 5%);
+    --bg-end: hsl(220 35% 10%);
+    --card-bg: rgba(49, 47, 59, 0.201);
+    --card-border: hsl(220 26% 31%);
+    --text: hsl(220 100% 98%);
+    --text-dim: hsl(220 35% 73%);
     --shadow: rgba(0, 0, 0, 0.3);
     --shadow-hover: rgba(0, 0, 0, 0.5);
 }
@@ -193,6 +193,57 @@ body {
     position: absolute;
     transition: var(--transition);
     color: var(--text);
+}
+
+/* permission section */
+.permission-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+.permission-card {
+    width: 400px;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    box-shadow: 0 8px 32px var(--shadow);
+    padding: calc(var(--spacing) * 1.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: var(--transition);
+}
+.permission-card:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 16px 48px var(--shadow-hover);
+}
+.permission-icon {
+    font-size: 60px;
+    margin-bottom: var(--spacing);
+}
+.permission-text {
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: var(--spacing);
+}
+.permission-btn, .manual-btn {
+    width: 100%;
+    padding: 12px 0;
+    margin: 8px 0;
+    background: var(--bg-start);
+    border: none;
+    border-radius: var(--radius);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.permission-btn:hover, .manual-btn:hover {
+    background: var(--bg-end);
+    box-shadow: 0 4px 12px var(--shadow);
 }
 
 /* main wrapper */

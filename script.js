@@ -15,7 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const sunset = document.getElementById("sunset");
     const visibilityEl = document.getElementById("visibility");
     const pressure = document.getElementById("pressure");
+    const permission = document.getElementById("permissionSection");
+    const permissionBtn = document.getElementById("permissionBtn");
+    const manualBtn = document.getElementById("manualBtn");
 
+    // my api key
+    let api_key = "e8174aad8c848ef7fbe459982af32245";
 
     // theme switcher
     let currentTheme = 'dark';
@@ -25,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
         currentTheme = currentTheme === 'light' ? 'dark' : 'light';
         body.setAttribute('data-theme', currentTheme);
     });
-
 
     // update clock every second
     function updateDateTime() {
@@ -44,10 +48,42 @@ document.addEventListener("DOMContentLoaded", function () {
     updateDateTime();
     setInterval(updateDateTime, 1000);
 
+    // get user location
+    permissionBtn.addEventListener('click', () => {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const { latitude, longitude } = position.coords;
+            saveCodes(latitude, longitude);
+            try {
+                let weatherData = await fetchWeatherByCoords(latitude, longitude);
+                console.log(weatherData);
+                showWeatherDetails(weatherData);
+                permission.style.display = 'none';
+            } catch (error) {
+                console.log("Unable to fetch weather data for your location.");
+            }
+        }, (error) => {
+            throw new error("Location access denied. Please use manual city search.");
+        }
+        );
+    });
+
+    // fetch weather by using codinates
+    async function fetchWeatherByCoords(lat, lon) {
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${api_key}`;
+        let request = await fetch(url);
+        if (!request.ok) {
+            throw new Error("Unable to fetch weather data for your location.");
+        }
+        let data = await request.json()
+        return data;
+    }
+
+    // manual city add
+    manualBtn.addEventListener('click', () => {
+        permission.style.display = 'none';
+    });
 
     // search functionality - Api fetching
-    let api_key = "e8174aad8c848ef7fbe459982af32245";
-
     async function handleSearch() {
         const query = searchInput.value.trim();
         if (query === "") return
@@ -127,9 +163,30 @@ document.addEventListener("DOMContentLoaded", function () {
             hour12: true
         });
     }
+
+    // saving the code for future use
+    function saveCodes(lat, lon) {
+        localStorage.setItem('latitude', JSON.stringify(lat));
+        localStorage.setItem('longitude', JSON.stringify(lon));
+    }
+
+    // using saved codes for showing weather 
+    async function loadSavedLocation() {
+        const savedLat = JSON.parse(localStorage.getItem('latitude'));
+        const savedLon = JSON.parse(localStorage.getItem('longitude'));
+        if (savedLat && savedLon) {
+            try {
+                let weatherData = await fetchWeatherByCoords(savedLat, savedLon);
+                console.log(weatherData);
+                showWeatherDetails(weatherData);
+                permission.style.display = 'none';
+            } catch (error) {
+                console.log("Unable to fetch weather data for your location.");
+            }
+        }
+    }
+    loadSavedLocation();
 })
-
-
 
 
 
